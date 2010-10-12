@@ -193,16 +193,17 @@ foreach($tab_version as $key => $element)
 
 
 
-$query3 = 'SELECT texte, date_traduction as date FROM '.cms_db_prefix().'module_oscs_traduction order by date_traduction DESC';
+$query3 = 'SELECT texte, date_traduction as date FROM '.cms_db_prefix().'module_oscs_traduction order by date_traduction ASC';
 $result3 = $db->Execute($query3);
 if ($result3 === false){echo "Database error durant la récupération des outils de traduction!";	exit;}
 $listeTraduction = array();
+$lastTraduction = null;
 while ($row = $result3->FetchRow())
 {
 	$listeTraduction[$row['date']] = unserialize($row['texte']);
+	$lastTraduction = $listeTraduction[$row['date']];
 }
 	
-
 
 $admintheme =& $gCms->variables['admintheme'];
 foreach($tab_module as $key => $element)
@@ -211,9 +212,6 @@ foreach($tab_module as $key => $element)
 	$class->name = $key;
 	$class->count = $element['cpt'];
 	$class->percent = round(($syntheseCmsModuleCount == 0?0:($element['cpt'] * 100 / $syntheseCmsModuleCount)),2).'%';
-	$class->traductionRealisee = 0;
-	$class->traductionTotale = 0;
-	$class->traductionPourcent = 0;
 	$syntheseCmsModule[] = $class;
 	
 	$class->version = array();
@@ -227,25 +225,35 @@ foreach($tab_module as $key => $element)
 	}
 	$class->versionLine = getJSLinePourcent($class->version);
 	
-	$isfirst = true;
-	$i = 0;
+	//changement du nom éventuellement
 	$searchName = array("DownCnt");
 	$remplaceName = array("DownloadCounter");
+	$nameTraduit = str_replace($searchName, $remplaceName, $class->name);
+
+	//récupération des dernières traduction
+	if(isset($lastTraduction[$nameTraduit]))
+	{
+		$class->traductionRealisee = $lastTraduction[$nameTraduit]->done;
+		$class->traductionTotale = $lastTraduction[$nameTraduit]->total;
+		$class->traductionPourcent = floor($lastTraduction[$nameTraduit]->done*100/$lastTraduction[$nameTraduit]->total);
+	}
+	else
+	{
+		$class->traductionRealisee = 0;
+		$class->traductionTotale = 0;
+		$class->traductionPourcent = 0;
+	}
+	
+	$class->traduction = new stdclass();	
+	$class->traduction->line1 = array();
+	$class->traduction->line2 = array();
+	
+	
+	$i = 0;
 	foreach ($listeTraduction as $traduction)
 	{
-		$nameTraduit = str_replace($searchName, $remplaceName, $class->name);
 		if(isset($traduction[$nameTraduit]))
 		{
-			if($isfirst)
-			{
-				$isfirst = false;
-				$class->traductionRealisee = $traduction[$nameTraduit]->done;
-				$class->traductionTotale = $traduction[$nameTraduit]->total;
-				$class->traductionPourcent = floor($traduction[$nameTraduit]->done*100/$traduction[$nameTraduit]->total);
-				$class->traduction = new stdclass();	
-				$class->traduction->line1 = array();
-				$class->traduction->line2 = array();
-			}
 			$class->traduction->line1[$i] = $traduction[$nameTraduit]->done;
 			$class->traduction->line2[$i] = $traduction[$nameTraduit]->total;
 		}
@@ -253,9 +261,7 @@ foreach($tab_module as $key => $element)
 	}
 
 	if(isset($class->traduction))
-	{
-		rsort($class->traduction->line1);
-		rsort($class->traduction->line2);
+	{	
 		
 		$tradline1 = "";
 		$tradline2 = "";
@@ -266,12 +272,17 @@ foreach($tab_module as $key => $element)
 				$tradline1 .= ",";
 				$tradline2 .= ",";
 			}
-			$tradline1 .= '['.$i.','.$class->traduction->line1[$i].']';
-			$tradline2 .= '['.$i.','.($class->traduction->line2[$i]-$class->traduction->line1[$i]).']';
+			$tradline1 .= '['.($i+1).','.$class->traduction->line1[$i].']';
+			$tradline2 .= '['.($i+1).','.($class->traduction->line2[$i]-$class->traduction->line1[$i]).']';
 		}
+		
 		
 		$class->traduction->line1 = $tradline1;
 		$class->traduction->line2 = $tradline2;
+		
+		
+	
+		//die(print_r($class->traduction->line1).print_r($class->traduction->line2));
 	}	
 	
 }

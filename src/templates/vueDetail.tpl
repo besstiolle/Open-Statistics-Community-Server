@@ -24,8 +24,8 @@
 		{/literal}{*$("#more_{/literal}{$myModule->name}{literal}").fancybox({'titlePosition': 'inside','transitionIn': 'none','transitionOut': 'none'}); *}{literal}
 		
 		{/literal}{if $myModule->traductionTotale != 0}{literal}
-		line1 = {/literal}{$myModule->traduction->line1}{literal};
-		line2 = {/literal}{$myModule->traduction->line2}{literal};
+		line1 = [[0,0],{/literal}{$myModule->traduction->line1}{literal}];
+		line2 = [[0,0],{/literal}{$myModule->traduction->line2}{literal}];
 		plotTrad = $.jqplot('chartTrad', [line1, line2], {
 			stackSeries: true,
 			legend: {show: true, location: 'nw'},
@@ -37,7 +37,7 @@
 			],
 			axes: {
 			  xaxis: {
-				  ticks:[0,1,2,3], 
+				  ticks:[0,1,2,3,4,5,6], 
 				  tickOptions:{formatString:'%d'}
 			  }, 
 			  yaxis: {min: 0, max: {/literal}{$myModule->traductionTotale}{literal}, numberTicks:5}
@@ -65,16 +65,22 @@
 		 <p><b>Aider &agrave; la traduction</b></p>
 			<p>Vous pouvez aider &agrave; traduire le module de l'anglais au fran&ccedil;ais tr&egrave;s simplement et nous aider &agrave; am&eacute;liorer Cms Made Simple en le rendant plus ouvert au public. </p>
 			<p>Pour ce faire c'est tr&egrave;s simple. Commencez par lire <a href='http://www.cmsmadesimple.fr/boutique-cms/documentation-gestion-de-contenu'>ce guide du traducteur</a>, et rendez vous sur le <a href='http://translations.cmsmadesimple.org/login.php'>Centre de traduction</a> afin de commencer le travail.</p>
-			<p>La premi&egrave;re utilisation du service vous prendra 10 minutes pour tout configurer. Les utilisations suivantes sont instantan&eacute;es. </p>
+			<p>La premi&egrave;re utilisation du service vous prendra 10 minutes pour tout configurer. Les utilisations suivantes sont instantan&eacute;es.</p>
+			<p>r&eacute;capitulatif des url &agrave; retenir pour traduire ce module : </p>
+			<ul>
+				<li><a target='_blank' href='http://www.cmsmadesimple.fr/boutique-cms/documentation-gestion-de-contenu'>Le guide du traducteur</a></li>
+				<li><a target='_blank' href='http://translations.cmsmadesimple.org/login.php'>Le centre de traduction</a></li>
+				<li><a target='_blank' href='http://svn.cmsmadesimple.org/svn/translatecenter/modules/{$myModule->name}/lang/ext/fr_FR.php'>La derni&egrave;re version du fichier de langue Fr pour ce module</a> (si existant dans le Centre de traduction)</li>
+			</ul>
 		{/if}
 		
 		 <h2>Documentation du module</h2>
-		 <p>Le WIKI de Cms Made Simple est accessible &agrave; tout le monde en lecture seule. La page d'aide du module {$myModule->name} est accessible sur ce <a href='http://wiki.cmsmadesimple.org/index.php/User_Handbook/Admin_Panel/Modules/{$myModule->name}/fr'>lien</a></p>
+		 <p>Le WIKI de Cms Made Simple est accessible &agrave; tout le monde en lecture seule. La page d'aide du module {$myModule->name} est accessible sur ce <a href='http://wiki.cmsmadesimple.org/index.php/User_Handbook/Modules/{$myModule->name}/fr'>lien</a></p>
 		 <p>Le WIKI de Cms Made Simple est accessible &eacute;galement en modification &agrave; toutes les personnes inscrites sur le <a href='http://forum.cmsmadesimple.org/'>forum <b>anglais</b></a>. Sit&ocirc;t votre login et mot de passe en poche, vous pourrez commencer &agrave; enrichir les pages.</p>
 		 
 		 <h2>Notation du module</h2>
 		  *&agrave; venir :)*
-		 {*cms_module module='AJAXStarRatingBar' group=$myModule->name vote_id=1 redirect=1*}
+		 
 	</div>
 	
 	<p>{if $backlink != null}{$backlink}{/if}</p>
