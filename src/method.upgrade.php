@@ -55,4 +55,9 @@ if($oscs->GetVersion() <= '0.0.4')
 	$dict->ExecuteSQLArray($sqlarray);
 }
 
+if($oscs->GetVersion() <= '0.0.5')
+{
+	$this->AddEventHandler('Core', 'ContentPostRender', false);
+}
+
 ?>

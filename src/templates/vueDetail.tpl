@@ -52,8 +52,8 @@
 
 	<div class='stat_panel' id='cadrem_{$myModule->name}'>
 		
-		<h2>Versions actives du module</h2> 
-		<p>(pour le mois s&eacute;lectionn&eacute;)</p>
+		<h2>Versions du module {$myModule->name} en {$mois}</h2> 
+		
 		<div id="chartm_{$myModule->name}" style="margin-top:20px; width:550px; height:500px;"></div>
 		 
 		<h2>T&eacute;l&eacute;charger ce module</h2> 

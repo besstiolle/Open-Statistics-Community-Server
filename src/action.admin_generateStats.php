@@ -177,6 +177,7 @@ while ($row = $result2->FetchRow())
 }
 
 //Tri des différents tableau
+ksort($tab_version);
 ksort($tab_php);
 ksort($tab_memoryLimit, SORT_NUMERIC);
 ksort($tab_safeMode);
@@ -235,7 +236,14 @@ foreach($tab_module as $key => $element)
 	{
 		$class->traductionRealisee = $lastTraduction[$nameTraduit]->done;
 		$class->traductionTotale = $lastTraduction[$nameTraduit]->total;
-		$class->traductionPourcent = floor($lastTraduction[$nameTraduit]->done*100/$lastTraduction[$nameTraduit]->total);
+		if($lastTraduction[$nameTraduit]->total == 0)
+		{
+			$class->traductionPourcent = 0;
+		}
+		else
+		{
+			$class->traductionPourcent = floor($lastTraduction[$nameTraduit]->done*100/$lastTraduction[$nameTraduit]->total);
+		}
 	}
 	else
 	{
