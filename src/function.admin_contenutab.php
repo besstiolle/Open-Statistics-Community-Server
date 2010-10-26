@@ -20,11 +20,12 @@ $listeFrontal = array();
 
 $admintheme =& $gCms->variables['admintheme'];
 $i=0;
+
 while ($row = $result->FetchRow())
 {
 	$obj = new stdClass;
 	$obj->cni = $row['cni'];
-	$obj->date_reception = $this->_dbToDate($row['date_reception']);
+	$obj->date_reception = $db->UnixTimeStamp($row['date_reception']);
 	$obj->reponse = $row['reponse'];
 	$obj->rowclass = ($i++%2 == 0?'row1':'row2');
 	$obj->showlink = $this->CreateLink($id, 'admin_showRapport', $returnid, $admintheme->DisplayImage('icons/system/view.gif', $this->Lang('consulter'),'','','systemicon'), array('rapportid'=>$row['rapportid']));

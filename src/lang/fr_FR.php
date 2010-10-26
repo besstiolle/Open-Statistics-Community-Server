@@ -11,6 +11,8 @@ $lang['title_contenu'] = 'Listing des r&eacute;ceptions';
 $lang['title_generation'] = 'G&eacute;n&eacute;ration des statistiques';
 $lang['title_traduction'] = 'Renseigner la traduction';
 
+$lang['accessdenied'] = 'Acc&egrave;s Refus&eacute;';
+
 $lang['cnitext'] = 'CNI du client';
 $lang['datetext'] = 'date de r&eacute;ception';
 $lang['responsetext'] = 'R&eacute;ponse du serveur';

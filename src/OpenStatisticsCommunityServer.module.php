@@ -136,7 +136,7 @@ class OpenStatisticsCommunityServer extends CMSModule
 	$this->RegisterRoute('/statistiques\/top\/(?P<returnid>[0-9]+)\/(?P<mois>[0-9]+)$/',
 		 array('action'=>'showTop'));
 	
-	$this->RegisterRoute('/statistiques\/modules\/(?P<returnid>[0-9]+)\/(?P<mod>[a-zA-Z_ ,]+)\/(?P<mois>[0-9]+)$/',
+	$this->RegisterRoute('/statistiques\/modules\/(?P<returnid>[0-9]+)\/(?P<mod>[a-zA-Z_\- ,]+)\/(?P<mois>[0-9]+)$/',
 		 array('action'=>'showModule'));
 		 
 	$this->RegisterRoute('/statistiques\/modules\/(?P<returnid>[0-9]+)\/(?P<mois>[0-9]+)$/',
@@ -171,16 +171,6 @@ class OpenStatisticsCommunityServer extends CMSModule
   {
     return $this->Lang('really_uninstall');
   }
-   
-	function _dbToDate($stringDate)
-	{
-		return mktime(substr($stringDate, 11,2),
-					substr($stringDate, 14,2),
-					substr($stringDate, 17,2),
-					substr($stringDate, 5,2),
-					substr($stringDate, 8,2),
-					substr($stringDate, 0,4));
-	}
   
 	function _getTimeForDB($db)
 	{

@@ -52,7 +52,7 @@ while ($row = $result->FetchRow())
 {
 	$rapport = new stdClass;
 	$rapport->id = $row['id'];
-	$rapport->date_reception = $this->_dbToDate($row['date_reception']);
+	$rapport->date_reception = $db->UnixTimeStamp($row['date_reception']);
 	$rapport->clepublic = $row['clepublic'];
 	$rapport->rapport = $row['rapport'];
 	
