@@ -174,6 +174,8 @@ class OpenStatisticsCommunityServer extends CMSModule
   
 	function _getTimeForDB($db)
 	{
+		//	echo $db->DBTimeStamp(time());
+		// echo $db->UnixTimeStamp(time());
 		return trim($db->DBTimeStamp(time()), "'");
 	}
 	

@@ -33,6 +33,8 @@ if (!isset($gCms)) exit;
 $db =& $gCms->GetDb();
 $oscs =& $gCms->modules["OpenStatisticsCommunityServer"]['object'];
 
+if(!isset($oscs))
+	return;
 
 if($oscs->GetVersion() <= '0.0.4')
 {
