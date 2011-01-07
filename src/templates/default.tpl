@@ -19,5 +19,5 @@
   });
   </script>
 {/literal}
-<div id="chart1" style="margin-top:20px; width:550px; height:500px;"></div>
+<div id="chart1" style="margin-top:20px; width:500px; height:500px;"></div>
 {/strip}

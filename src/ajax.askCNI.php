@@ -31,7 +31,7 @@ require dirname(dirname(dirname($_SERVER['SCRIPT_FILENAME']))) . DIRECTORY_SEPAR
 function getCle($db)
 {	
 	$cle = getNewCode();
-	// Récupérer le User et ses clés
+	// Recuperer le User et ses cles
 	$query = 'SELECT count(*) as cpt FROM '.cms_db_prefix().'module_oscs_user WHERE cni = ?';
 
 	$result = $db->Execute($query,array($cle));
@@ -64,7 +64,7 @@ function getNewCode()
 $db =& $gCms->GetDb();
 $oscs =& $gCms->modules["OpenStatisticsCommunityServer"]['object'];
 
-//Arrivé à ce niveau on enregistre les résultats
+//Arrive a ce niveau on enregistre les resultats
 $query = 'INSERT INTO '.cms_db_prefix().'module_oscs_user ( id , cni, clepublic, cleprivee, date_creation, date_update) values (?,?,?,?,?,?)';
 $sid = $db->GenID(cms_db_prefix().'module_oscs_user_seq');
 $time = $oscs->_getTimeForDB($db);

@@ -4,12 +4,12 @@ if (!isset($gCms)) exit;
 
 $prettyUrlRapport = "statistiques/modules/";
 
-require_once("inc.header.php");
+require("inc.header.php");
 
 /* ############## PARTIE A FAIRE EVOLUER ################ */
 $syntheseCmsModule = unserialize($arraySerialise[2]);
 
-//On refait une passe sur la liste des modules pour mettre à jour les liens et le paramètre $mois
+//On refait une passe sur la liste des modules pour mettre a jour les liens et le parametre $mois
 foreach ($syntheseCmsModule as $module)
 {
 	$prettyUrl = "statistiques/modules/".$returnid."/".$module->name."/".$params['mois'];
@@ -25,6 +25,15 @@ $smarty->assign('syntheseCmsModule',$syntheseCmsModule);
 $smarty->assign('mois', $this->_getMoisLiteral($mois));
 $smarty->assign_by_ref('module',$this);
 
-echo $this->ProcessTemplate('showListeModule.tpl');
+//echo $this->ProcessTemplate('showListeModule.tpl');
 
+#Display template
+echo "<!-- Displaying OSCS Module -->\n";
+$template = 'showListeModule'.$this->GetPreference('current_showListeModule_template');
+if (isset($params['template']))
+  {
+    $template = 'showListeModule'.$params['template'];
+  }
+echo $this->ProcessTemplateFromDatabase($template);
+echo "<!-- END OSCS Module -->\n";
 ?>

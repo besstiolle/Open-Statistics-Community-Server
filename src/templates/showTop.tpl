@@ -65,10 +65,10 @@
 		</table>
 </fieldset>
 
-    <div id="chart1" style="margin-top:20px; width:550px; height:500px;"></div>	
-	<div id="chart2" style="margin-top:20px; width:550px; height:500px;"></div>
-	<div id="chart3" style="margin-top:20px; width:550px; height:500px;"></div>
-	<div id="chart4" style="margin-top:20px; width:550px; height:500px;"></div>
+    <div id="chart1" style="margin-top:20px; width:500px; height:500px;"></div>	
+	<div id="chart2" style="margin-top:20px; width:500px; height:500px;"></div>
+	<div id="chart3" style="margin-top:20px; width:500px; height:500px;"></div>
+	<div id="chart4" style="margin-top:20px; width:500px; height:500px;"></div>
 
 
 {/strip}

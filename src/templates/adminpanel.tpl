@@ -1,5 +1,5 @@
 {$tabs_start}
-   {* onglet général : listing des derniers rapport reçus des envois *}
+   {* onglet general : listing des derniers rapport recus des envois *}
       {$contenuTpl}
 	  	<table cellspacing="0" class="pagetable">
 			<thead>
@@ -23,7 +23,7 @@
 			</tbody>
 		</table>
    {$tab_end}
-   {* Fin onglet général *}
+   {* Fin onglet general *}
    
    {* onglet traduction *}
       {$traductionTpl}
@@ -31,7 +31,7 @@
    {$tab_end}
    {* Fin onglet traduction *}
    
-   {* onglet général : historique des envois *}
+   {* onglet general : historique des envois *}
       {$generationTpl}
 		<table cellspacing="0" class="pagetable">
 			<thead>
@@ -50,6 +50,27 @@
 			</tbody>
 		</table>
    {$tab_end}
-   {* Fin onglet général *}
+   
+   {$tpl_default}
+	  <h3>{$module->Lang('info_template_default')}</h3>
+	  {$listeGabaritdefault}
+   {$tab_end}
+   {$tpl_frontoffice}
+	  <h3>{$module->Lang('info_template_frontoffice')}</h3>
+	  {$listeGabaritfrontoffice}
+   {$tab_end}
+   {$tpl_showListeModule}
+	  <h3>{$module->Lang('info_template_showListeModule')}</h3>
+	  {$listeGabaritshowListeModule}
+   {$tab_end}
+   {$tpl_showTop}
+	  <h3>{$module->Lang('info_template_showTop')}</h3>
+	  {$listeGabaritshowTop}
+   {$tab_end}
+   {$tpl_vueDetail}
+	  <h3>{$module->Lang('info_template_vueDetail')}</h3>
+	  {$listeGabaritvueDetail}
+   {$tab_end}
+   
 {$tabs_end}
 

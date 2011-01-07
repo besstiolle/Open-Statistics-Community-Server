@@ -4,7 +4,7 @@ if (!isset($gCms)) exit;
 
 $prettyUrlRapport = "statistiques/top/";
 
-require_once("inc.header.php");
+require("inc.header.php");
 
 /* ############## PARTIE A FAIRE EVOLUER ################ */
 $syntheseCmsVersion = unserialize($arraySerialise[0]);
@@ -23,6 +23,15 @@ $smarty->assign('line4',$line4);
 $smarty->assign('mois',$this->_getMoisLiteral($mois));
 $smarty->assign_by_ref('module',$this);
 
-echo $this->ProcessTemplate('showTop.tpl');
+//echo $this->ProcessTemplate('showTop.tpl');
 
+#Display template
+echo "<!-- Displaying OSCS Module -->\n";
+$template = 'showTop'.$this->GetPreference('current_showTop_template');
+if (isset($params['template']))
+  {
+    $template = 'showTop'.$params['template'];
+  }
+echo $this->ProcessTemplateFromDatabase($template);
+echo "<!-- END OSCS Module -->\n";
 ?>

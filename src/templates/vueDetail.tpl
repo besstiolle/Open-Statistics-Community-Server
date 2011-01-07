@@ -54,14 +54,14 @@
 		
 		<h2>Versions du module {$myModule->name} en {$mois}</h2> 
 		
-		<div id="chartm_{$myModule->name}" style="margin-top:20px; width:550px; height:500px;"></div>
+		<div id="chartm_{$myModule->name}" style="margin-top:20px; width:500px; height:500px;"></div>
 		 
 		<h2>T&eacute;l&eacute;charger ce module</h2> 
 		<p>Le plus souvent, le module est disponible sur la forge de Cms Made Simple. Pour aller le t&eacute;l&eacute;charger il vous suffit de cliquer sur ce <a title='chercher le projet sur la forge' href='http://dev.cmsmadesimple.org/projects/{$myModule->name}'>lien</a>. Si une erreur apparait c'est que l'auteur du module a choisit de ne pas le partager publiquement !</p>
 		
 		{if $myModule->traductionTotale != 0}
 		<h2>Traduction du module</h2> 
-		 <div class="jqPlot" id="chartTrad" style="height:150px; width:550px;"></div>
+		 <div class="jqPlot" id="chartTrad" style="height:150px; width:500px;"></div>
 		 <p><b>Aider &agrave; la traduction</b></p>
 			<p>Vous pouvez aider &agrave; traduire le module de l'anglais au fran&ccedil;ais tr&egrave;s simplement et nous aider &agrave; am&eacute;liorer Cms Made Simple en le rendant plus ouvert au public. </p>
 			<p>Pour ce faire c'est tr&egrave;s simple. Commencez par lire <a href='http://www.cmsmadesimple.fr/boutique-cms/documentation-gestion-de-contenu'>ce guide du traducteur</a>, et rendez vous sur le <a href='http://translations.cmsmadesimple.org/login.php'>Centre de traduction</a> afin de commencer le travail.</p>

@@ -28,7 +28,7 @@
 #-------------------------------------------------------------------------
 if (!isset($gCms)) exit;
 
-// Vérification de la permission
+// Verification de la permission
 if (! $this->CheckPermission('Set Open Statistics Community Server Prefs')) 
   return $this->DisplayErrorPage($id, $params, $returnid,$this->Lang('accessdenied'));
 
@@ -58,7 +58,7 @@ foreach($listeLigneTmp as $ligne)
 $queryInsert = 'INSERT INTO '.cms_db_prefix().'module_oscs_traduction (texte,date_traduction) values (?,?)';
 $param = array(serialize($listeLigne), $this->_getTimeForDB($db));
 $result = $db->Execute($queryInsert, $param);
-if ($result === false){die("Database error durant l'insert de la donnée!");}
+if ($result === false){die("Database error durant l'insert de la donn&eacute;e!");}
 // redirect back to default admin page
 $this->Redirect($id, 'defaultadmin', $returnid, array('tab_message'=> 'traductionupdated', 'active_tab' => 'traduction'));
 

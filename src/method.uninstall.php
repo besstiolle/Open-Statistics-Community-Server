@@ -48,6 +48,9 @@ $db->DropSequence( cms_db_prefix()."module_oscs_rapport_seq" );
 // remove the permissions
 $this->RemovePermission('Set Open Statistics Community Server Prefs');
 
+$this->DeleteTemplate();
+$this->RemovePreference();
+
 // put mention into the admin log
 $this->Audit( 0, $this->Lang('friendlyname'), $this->Lang('uninstalled'));
 

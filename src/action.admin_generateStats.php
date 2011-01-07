@@ -28,14 +28,14 @@
 #-------------------------------------------------------------------------
 if (!isset($gCms)) exit;
 
-// Vérification de la permission
+// Verification de la permission
 if (! $this->CheckPermission('Set Open Statistics Community Server Prefs')) 
   return $this->DisplayErrorPage($id, $params, $returnid,$this->Lang('accessdenied'));
 
  if(!isset($params['mois']) || !is_numeric($params['mois']))
   return $this->DisplayErrorPage($id, $params, $returnid,"hack");
   
-// Liste des rapports du mois dans leur dernière version
+// Liste des rapports du mois dans leur derniere version
 $query =  'SELECT max(id) as id, user_id FROM  '.cms_db_prefix().'module_oscs_rapport r ';
 $query .= ' WHERE DATE_FORMAT(date_reception, \'%Y%m\') = ? group by user_id';
 $result = $db->Execute($query,array($params['mois']));
@@ -44,7 +44,7 @@ $result = $db->Execute($query,array($params['mois']));
 if ($result === false)
 {
 	echo $query."<br/>".$params['mois'];
-	echo "Database error durant la récupération des ID de rapports!";
+	echo "Database error durant la r&eacute;cup&eacute;ration des ID de rapports!";
 	exit;
 }
 $listeId = $result->GetArray();
@@ -63,7 +63,7 @@ $result2 = $db->Execute($query2);
 if ($result2 === false)
 {
 	echo $query2."<br/>".$chaine;
-	echo "Database error durant la récupération des contenus de rapports!";
+	echo "Database error durant la r&eacute;cup&eacute;ration des contenus de rapports!";
 	exit;
 }
 
@@ -95,7 +95,7 @@ $tab_safeMode = array();
 while ($row = $result2->FetchRow())
 {
 	$arrayRapport = unserialize($this->_Decrypte($row['rapport'], $row['clepublic']));
-	//Récupération des versions
+	//Recuperation des versions
 	if(isset($arrayRapport['cms_version']))
 	{
 		$syntheseCmsVersionCount++;
@@ -105,7 +105,7 @@ while ($row = $result2->FetchRow())
 			$tab_version[$arrayRapport['cms_version']]++;
 	}
 	
-	//Récupération des modules
+	//Recuperation des modules
 	if(isset($arrayRapport['installed_modules']))
 	{
 		$syntheseCmsModuleCount++;
@@ -151,7 +151,7 @@ while ($row = $result2->FetchRow())
 		$tab_php[$var] ++;
 	}
 	
-	//Limite mémoire
+	//Limite memoire
 	if(isset($arrayRapport['php_information']['memory_limit']))
 	{
 		$syntheseMemoryLimitCount++;
@@ -176,7 +176,7 @@ while ($row = $result2->FetchRow())
 	}
 }
 
-//Tri des différents tableau
+//Tri des differents tableau
 ksort($tab_version);
 ksort($tab_php);
 ksort($tab_memoryLimit, SORT_NUMERIC);
@@ -196,7 +196,7 @@ foreach($tab_version as $key => $element)
 
 $query3 = 'SELECT texte, date_traduction as date FROM '.cms_db_prefix().'module_oscs_traduction order by date_traduction ASC';
 $result3 = $db->Execute($query3);
-if ($result3 === false){echo "Database error durant la récupération des outils de traduction!";	exit;}
+if ($result3 === false){echo "Database error durant la r&eacute;cup&eacute;ration des outils de traduction!";	exit;}
 $listeTraduction = array();
 $lastTraduction = null;
 while ($row = $result3->FetchRow())
@@ -226,12 +226,12 @@ foreach($tab_module as $key => $element)
 	}
 	$class->versionLine = getJSLinePourcent($class->version);
 	
-	//changement du nom éventuellement
+	//changement du nom eventuellement
 	$searchName = array("DownCnt");
 	$remplaceName = array("DownloadCounter");
 	$nameTraduit = str_replace($searchName, $remplaceName, $class->name);
 
-	//récupération des dernières traduction
+	//recuperation des dernieres traduction
 	if(isset($lastTraduction[$nameTraduit]))
 	{
 		$class->traductionRealisee = $lastTraduction[$nameTraduit]->done;
@@ -320,16 +320,16 @@ foreach($tab_safeMode as $key => $element)
 }
 
 
-//Données JS
+//Donnees JS
 $line1 = getJSLine($syntheseCmsVersion);
 $line2 = getJSLine($synthesePhp);
 $line3 = getJSLine($syntheseMemoryLimit);
 $line4 = getJSLine($syntheseSafeMode);
 
-//Sauvegarde des stats générées
+//Sauvegarde des stats generees
 $handle = fopen('..'. DIRECTORY_SEPARATOR .'modules'. DIRECTORY_SEPARATOR .'OpenStatisticsCommunityServer'. DIRECTORY_SEPARATOR .'stats'. DIRECTORY_SEPARATOR .$params['mois'],'w+');
 if (!$handle) 
-  return $this->DisplayErrorPage($id, $params, $returnid, "écriture statistiques impossible");
+  return $this->DisplayErrorPage($id, $params, $returnid, "&eacute;criture statistiques impossible");
 
 fwrite($handle, serialize($syntheseCmsVersion));
 fwrite($handle, "|||");

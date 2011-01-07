@@ -1,7 +1,7 @@
 <?php
 if (!isset($gCms)) exit;
 
-// Vérification de la permission
+// Verification de la permission
 if (! $this->CheckPermission('Set Open Statistics Community Server Prefs')) 
   return $this->DisplayErrorPage($id, $params, $returnid,$this->Lang('accessdenied'));
 

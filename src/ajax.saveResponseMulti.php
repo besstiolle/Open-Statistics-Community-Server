@@ -34,7 +34,7 @@ function testVariable()
 	 /**      CNI | RESUME | SIZE | DATA   **/
 	 /**    X(90) |  X(32) | I(5) | X(20K)   **/
 
-	//Variable ID : le code identifiant de l'utilisateur = 50 Caractères
+	//Variable ID : le code identifiant de l'utilisateur = 50 Caracteres
 	if(!isset($_GET['CNI']) || empty($_GET['CNI']) || strlen($_GET['CNI']) != 50)
 	{
 		giveResponse(100);
@@ -73,7 +73,7 @@ function testVariable()
 function getUser($cni)
 {
 	global $db;
-	// Récupérer le User et ses clés
+	// Recuperer le User et ses cles
 	$query = 'SELECT * FROM '.cms_db_prefix().'module_oscs_user WHERE cni = ?';
 		
 	$result = $db->Execute($query,array($cni));
@@ -106,10 +106,10 @@ if(isset($_GET['new']))
 {
 	$nbPart = $_GET['new'];
 	
-	//Vérif de l'utilisateur
+	//Verif de l'utilisateur
 	$user = getUser($cni);
 	
-	//Supression de l'existant de l'utilisateur dans tmp pour éviter le flood
+	//Supression de l'existant de l'utilisateur dans tmp pour eviter le flood
 	$query = 'DELETE FROM '.cms_db_prefix().'module_oscs_rapport_tmp WHERE cni = ?';
 	$param = array($cni);
 	$result = $db->Execute($query,$param);
@@ -121,7 +121,7 @@ if(isset($_GET['new']))
 	$sid = $db->GenID(cms_db_prefix().'module_oscs_rapport_tmp_seq');
 	$param = array($sid, $cni, $resume, $size, $nbPart, serialize($tab));
 	$result = $db->Execute($queryInsert, $param);
-	if ($result === false){die("Database error durant l'insert de la première donnée!");}
+	if ($result === false){die("Database error durant l'insert de la premi&egrave;re donn&eacute;e!");}
 	echo $sid; //On renvoi le SID de la ligne
 	die();
 } else 
@@ -130,14 +130,14 @@ if(isset($_GET['new']))
 	$partdata = $_GET['partdata'];
 	$sid = $_GET['sid'];
 	
-	//Vérif de l'utilisateur
+	//Verif de l'utilisateur
 	$user = getUser($cni);
 	
-	//Récupération du tableau en base
+	//Recuperation du tableau en base
 	$query = 'SELECT * from '.cms_db_prefix().'module_oscs_rapport_tmp WHERE id = ?';
 	$param = array($sid);
 	$result = $db->Execute($query,$param);
-	if ($result === false){die("Database error durant la récupération des lignes de l'auteur!");}
+	if ($result === false){die("Database error durant la r&eacute;cup&eacute;ration des lignes de l'auteur!");}
 	$res = null;
 	while ($row = $result->FetchRow())
 	{
@@ -148,7 +148,7 @@ if(isset($_GET['new']))
 		$res = $row;
 	}
 	
-	//Si aucune ligne remontée
+	//Si aucune ligne remontee
 	if(!isset($res)){giveResponse(204);}
 	
 	$data = unserialize($res['data']);
@@ -169,7 +169,7 @@ if(isset($_GET['new']))
 		$queryInsert = 'Update '.cms_db_prefix().'module_oscs_rapport_tmp set data=? WHERE id = ?';
 		$param = array(serialize($data), $sid);
 		$result = $db->Execute($queryInsert, $param);
-		if ($result === false){die("Database error durant l'update de la donnée!");}
+		if ($result === false){die("Database error durant l'update de la donn&eacute;e!");}
 		echo 0;
 		die();
 	}
@@ -185,18 +185,18 @@ if(isset($_GET['new']))
 	$data = $mydata;
 	
 	
-	//Comparaison size reçu et size attendue
+	//Comparaison size recu et size attendue
 	if(strlen($data) != $size)
 	{
-		echo "<br/>4 - attendu :  ".$size." reçu : ".strlen($data)."<br/>";
+		echo "<br/>4 - attendu :  ".$size." recu : ".strlen($data)."<br/>";
 		giveResponse(201);
 	}
 
-	//Contrôle de coh&eacute;rence entre le MD5 supposé et le MD5 obtenu
+	//Controle de coherence entre le MD5 suppose et le MD5 obtenu
 	if(md5($data) != $resume)
 	{
 	//	echo $data."\n\n<br/><br/>";
-		echo "5 - attendu :  ".$resume." reçu : ".md5($data);
+		echo "5 - attendu :  ".$resume." recu : ".md5($data);
 		giveResponse(201);
 	}
 
@@ -206,11 +206,11 @@ if(isset($_GET['new']))
 	$report = unserialize($report);
 
 
-	//Si tentative d'insertion de fausses données
+	//Si tentative d'insertion de fausses donnees
 	if(!isReportValide($report))
 		giveResponse(202);
 			
-	//Arrivé à ce niveau on enregistre les résultats
+	//Arrive a ce niveau on enregistre les resultats
 	$queryInsert = 'INSERT INTO '.cms_db_prefix().'module_oscs_rapport (id, user_id, reponse, rapport, date_reception) values (?,?,?,?,?)';
 
 	$sid = $db->GenID(cms_db_prefix().'module_oscs_rapport_seq');
@@ -221,15 +221,15 @@ if(isset($_GET['new']))
 
 	if ($result === false){die("Database error durant l'insert!");}
 
-	//On met également à jour la date de dernier envoi de rapport pour l'utilisateur
+	//On met egalement a jour la date de dernier envoi de rapport pour l'utilisateur
 	$query = 'UPDATE '.cms_db_prefix().'module_oscs_user SET date_update = ? WHERE cni = ?';
 
 	$param = array($time, $_GET['CNI']);
 	$result = $db->Execute($query,$param);
 
-	if ($result === false){die("Database error durant la mise à jour utilisateur!");}
+	if ($result === false){die("Database error durant la mise &agrave; jour utilisateur!");}
 
-	//Supression de l'existant de l'utilisateur dans tmp pour éviter l'encombrement de la bdd temp
+	//Supression de l'existant de l'utilisateur dans tmp pour eviter l'encombrement de la bdd temp
 	$query = 'DELETE FROM '.cms_db_prefix().'module_oscs_rapport_tmp WHERE cni = ?';
 	$param = array($cni);
 	$result = $db->Execute($query,$param);

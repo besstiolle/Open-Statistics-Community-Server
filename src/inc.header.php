@@ -11,15 +11,6 @@ if($mois == null)
 	return;
 }
 
-$prettyUrl = "statistiques/modules/".$returnid."/".$mois;
-$smarty->assign('linkListeModule',$this->CreateLink($id, '', '', 'Liste des modules install&eacute;s',array(),'',false,true,'',false, $prettyUrl));
-
-$prettyUrl = "statistiques/".$returnid."/".$mois;
-$smarty->assign('linkDefault',$this->CreateLink($id, '', '', 'Sommaire',array(),'',false,true,'',false, $prettyUrl));
-
-$prettyUrl = "statistiques/top/".$returnid."/".$mois;
-$smarty->assign('linkTop',$this->CreateLink($id, '', '', 'Autres statistiques Cms',array(),'',false,true,'',false, $prettyUrl));
-
 $listeMois = array();
 foreach($listeFichier as $fichier)
 {
@@ -32,5 +23,4 @@ $smarty->assign('listeMois',$listeMois);
 
 $arraySerialise = $this->_getCacheByMonthToArray($mois);
 
-echo $this->_getFrontOffice();
 ?>

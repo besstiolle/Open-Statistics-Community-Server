@@ -1,5 +1,15 @@
 <?php
-class OpenStatisticsCommunityServer extends CMSModule
+
+$cgextensions = cms_join_path($gCms->config['root_path'],'modules',
+			      'CGExtensions','CGExtensions.module.php');
+if( !is_readable( $cgextensions ) )
+{
+  echo '<h1><font color="red">ERROR: The CGExtensions module could not be found.</font></h1>';
+  return;
+}
+require_once($cgextensions);
+
+class OpenStatisticsCommunityServer extends CGExtensions
 {
    var $listeCache = null;
    var $folder = null;
@@ -16,7 +26,7 @@ class OpenStatisticsCommunityServer extends CMSModule
 
   function GetVersion()
   {
-    return '0.0.5';
+    return '0.0.6';
   }
   
   function GetHelp()
@@ -31,7 +41,7 @@ class OpenStatisticsCommunityServer extends CMSModule
 
   function GetAuthorEmail()
   {
-    return 'besstiolle@gmail.com';
+    return 'contact@furie.be';
   }
   
   function GetChangeLog()
@@ -70,12 +80,12 @@ class OpenStatisticsCommunityServer extends CMSModule
   
   function GetDependencies()
   {
-    return array();
+    return array('CGExtensions'=>'1.21.3');
   }
 
   function MinimumCMSVersion()
   {
-    return "1.6.7";
+    return "1.9.1";
   }
   
   function HandlesEvents()
@@ -145,6 +155,9 @@ class OpenStatisticsCommunityServer extends CMSModule
 	
 	$this->RestrictUnknownParams();
 	
+	$this->CreateParameter('template', null, 'todo');
+	$this->SetParameterType('template',CLEAN_STRING);
+	
 	$this->CreateParameter('mois', 201009, 'todo');
 	$this->SetParameterType('mois',CLEAN_INT);
 	
@@ -174,8 +187,6 @@ class OpenStatisticsCommunityServer extends CMSModule
   
 	function _getTimeForDB($db)
 	{
-		//	echo $db->DBTimeStamp(time());
-		// echo $db->UnixTimeStamp(time());
 		return trim($db->DBTimeStamp(time()), "'");
 	}
 	
@@ -245,32 +256,11 @@ class OpenStatisticsCommunityServer extends CMSModule
 		return explode('|||',$contentstats);
 	}
 	
-	function _getFrontOffice()
-	{
-		global $gCms;
-		$db = &$gCms->GetDb();
-		$smarty = &$gCms->GetSmarty();
-
-		$query = 'SELECT count(*) as cpt FROM '.cms_db_prefix().'module_oscs_user';
-		$cpt = $db->getOne($query);
-		$smarty->assign('cptUser',$cpt);
-
-		$query = 'SELECT count(*) as cpt FROM '.cms_db_prefix().'module_oscs_rapport';
-		$cpt = $db->getOne($query);
-		$smarty->assign('cptRapport',$cpt);
-
-		$query = 'SELECT min(date_reception) as date_reception FROM '.cms_db_prefix().'module_oscs_rapport';
-		$cpt = $db->getOne($query);
-		$smarty->assign('min_date_reception',$cpt);
-
-		return $this->ProcessTemplate('frontoffice.tpl');
-	}
-	
 	function _getMois($mois)
 	{
 		global $listeCache;
 		
-		//Si aucun mois définit
+		//Si aucun mois definit
 		if(!isset($mois))
 		{
 			$mois = $listeCache[0];
@@ -314,7 +304,6 @@ class OpenStatisticsCommunityServer extends CMSModule
 		
 		return $array[$mois] . " " . $an;
 	}
-	
   
 }
 ?>

@@ -28,6 +28,24 @@ $lang['th_module'] = 'Nom du Module';
 $lang['th_traduction'] = '% de traduction';
 
 
+$lang['addedit_template_default'] = 'Ajouter/Editer un gabarit pour le r&eacute;sum&eacute; des stats graphique';
+$lang['addedit_template_frontoffice'] = 'Ajouter/Editer un gabarit pour les stats d\'utilisation d\'osc';
+$lang['addedit_template_showListeModule'] = 'Ajouter/Editer un gabarit pour la liste des modules';
+$lang['addedit_template_showTop'] = 'Ajouter/Editer un gabarit pour le top par th&egrave;me';
+$lang['addedit_template_vueDetail'] = 'Ajouter/Editer un gabarit pour l\'affichage en d&eacute;tail d\'un module';
+
+$lang['title_template_default'] = 'Gabarits du r&eacute;sum&eacute;';
+$lang['title_template_frontoffice'] = 'Gabarits des stats d\'utilisation d\'osc';
+$lang['title_template_showListeModule'] = 'Gabarits liste des modules';
+$lang['title_template_showTop'] = 'Gabarits top par th&egrave;me';
+$lang['title_template_vueDetail'] = 'Gabarits d&eacute;tail d\'un module';
+
+$lang['info_template_default'] = 'Gabarits disponibles pour le r&eacute;sum&eacute; graphique';
+$lang['info_template_frontoffice'] = 'Gabarits disponibles pour les stats d\'utilisation d\'osc';
+$lang['info_template_showListeModule'] = 'Gabarits disponibles pour la liste des modules';
+$lang['info_template_showTop'] = 'Gabarits disponibles pour le top par th&egrave;me';
+$lang['info_template_vueDetail'] = 'Gabarits disponibles pour l\'affichage en d&eacute;tail d\'un module';
+
 $lang['traductionupdated'] = 'le taux de traduction a &eacute;t&eacute; mis &agrave; jour.';
 
 

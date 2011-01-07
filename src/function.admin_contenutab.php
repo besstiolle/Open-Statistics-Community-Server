@@ -1,7 +1,7 @@
 <?php
 if (!isset($gCms)) exit;
 
-// Vérification de la permission
+// Verification de la permission
 if (! $this->CheckPermission('Set Open Statistics Community Server Prefs')) 
   return $this->DisplayErrorPage($id, $params, $returnid,$this->Lang('accessdenied'));
 
@@ -12,7 +12,7 @@ $result = $db->Execute($query);
 
 if ($result === false)
 {
-	echo "Database error durant la récupération des rapports!";
+	echo "Database error durant la r&eacute;cup&eacute;ration des rapports!";
 	exit;
 }
 
